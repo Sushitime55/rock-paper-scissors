@@ -66,6 +66,14 @@ function playGame() {
     let humanChoice = getHumanChoice();
     playRound(humanChoice, computerChoice);
   }
+
+  if (humanScore > computerScore) {
+    console.log("You are the match winner! Huzzah!");
+  } else if (humanScore == computerScore) {
+    console.log("Tie. No winners or losers.");
+  } else if (humanScore < computerScore) {
+    console.log("Computer is the match winner. Better luck next time.");
+  }
 }
 
 playGame();
