@@ -15,7 +15,51 @@ function getHumanChoice() {
   return choice;
 }
 
+function playRound(humanChoice, computerChoice) {
+  humanChoice = humanChoice.toLowerCase();
+  console.log("Your choice: " + humanChoice);
+  console.log("The computer's choice: " + computerChoice);
+
+  if (humanChoice == "rock") {
+    if (computerChoice == "rock") {
+      console.log("Tie! " + humanChoice + " ties " + computerChoice);
+    } else if (computerChoice == "paper") {
+      console.log("You lose! " + humanChoice + " loses to " + computerChoice);
+      computerScore++;
+    } else if (computerChoice == "scissors") {
+      console.log("You win! " + humanChoice + " beats " + computerChoice);
+      humanScore++;
+    }
+  } else if (humanChoice == "paper") {
+    if (computerChoice == "rock") {
+      console.log("You win! " + humanChoice + " beats " + computerChoice);
+      humanScore++;
+    } else if (computerChoice == "paper") {
+      console.log("Tie! " + humanChoice + " ties " + computerChoice);
+    } else if (computerChoice == "scissors") {
+      console.log("You lose! " + humanChoice + " loses to " + computerChoice);
+      computerScore++;
+    }
+  } else if (humanChoice == "scissors") {
+    if (computerChoice == "rock") {
+      console.log("You lose! " + humanChoice + " loses to " + computerChoice);
+      computerScore++;
+    } else if (computerChoice == "paper") {
+      console.log("You win! " + humanChoice + " beats " + computerChoice);
+      humanScore++;
+    } else if (computerChoice == "scissors") {
+      console.log("Tie! " + humanChoice + " ties " + computerChoice);
+    }
+  } else {
+    console.log("invalid human choice");
+  }
+}
+
 let computerChoice = getComputerChoice();
-let yourChoice = getHumanChoice();
-console.log("Your choice: " + yourChoice);
-console.log("The computer's choice: " + computerChoice);
+let humanChoice = getHumanChoice();
+
+let humanScore = 0;
+let computerScore = 0;
+
+playRound(humanChoice, computerChoice);
+console.log(humanScore);
