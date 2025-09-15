@@ -15,56 +15,65 @@ function getHumanChoice() {
   return choice;
 }
 
+function playRound(humanChoice, computerChoice) {
+  humanChoice = humanChoice.toLowerCase();
+  console.log("Your choice: " + humanChoice);
+  console.log("The computer's choice: " + computerChoice);
+  let humanResult = "Tie";
+
+  if (humanChoice == "rock") {
+    if (computerChoice == "rock") {
+      console.log("Tie! " + humanChoice + " ties " + computerChoice);
+    } else if (computerChoice == "paper") {
+      console.log("You lose! " + humanChoice + " loses to " + computerChoice);
+      humanResult = "Lose";
+    } else if (computerChoice == "scissors") {
+      console.log("You win! " + humanChoice + " beats " + computerChoice);
+      humanResult = "Win";
+    }
+  } else if (humanChoice == "paper") {
+    if (computerChoice == "rock") {
+      console.log("You win! " + humanChoice + " beats " + computerChoice);
+      humanResult = "Win";
+    } else if (computerChoice == "paper") {
+      console.log("Tie! " + humanChoice + " ties " + computerChoice);
+    } else if (computerChoice == "scissors") {
+      console.log("You lose! " + humanChoice + " loses to " + computerChoice);
+      humanResult = "Lose";
+    }
+  } else if (humanChoice == "scissors") {
+    if (computerChoice == "rock") {
+      console.log("You lose! " + humanChoice + " loses to " + computerChoice);
+      humanResult = "Lose";
+    } else if (computerChoice == "paper") {
+      console.log("You win! " + humanChoice + " beats " + computerChoice);
+      humanResult = "Win";
+    } else if (computerChoice == "scissors") {
+      console.log("Tie! " + humanChoice + " ties " + computerChoice);
+    }
+  } else {
+    console.log("invalid human choice");
+  }
+  return humanResult;
+}
+
 function playGame() {
   let humanScore = 0;
   let computerScore = 0;
 
-  function playRound(humanChoice, computerChoice) {
-    humanChoice = humanChoice.toLowerCase();
-    console.log("Your choice: " + humanChoice);
-    console.log("The computer's choice: " + computerChoice);
-
-    if (humanChoice == "rock") {
-      if (computerChoice == "rock") {
-        console.log("Tie! " + humanChoice + " ties " + computerChoice);
-      } else if (computerChoice == "paper") {
-        console.log("You lose! " + humanChoice + " loses to " + computerChoice);
-        computerScore++;
-      } else if (computerChoice == "scissors") {
-        console.log("You win! " + humanChoice + " beats " + computerChoice);
-        humanScore++;
-      }
-    } else if (humanChoice == "paper") {
-      if (computerChoice == "rock") {
-        console.log("You win! " + humanChoice + " beats " + computerChoice);
-        humanScore++;
-      } else if (computerChoice == "paper") {
-        console.log("Tie! " + humanChoice + " ties " + computerChoice);
-      } else if (computerChoice == "scissors") {
-        console.log("You lose! " + humanChoice + " loses to " + computerChoice);
-        computerScore++;
-      }
-    } else if (humanChoice == "scissors") {
-      if (computerChoice == "rock") {
-        console.log("You lose! " + humanChoice + " loses to " + computerChoice);
-        computerScore++;
-      } else if (computerChoice == "paper") {
-        console.log("You win! " + humanChoice + " beats " + computerChoice);
-        humanScore++;
-      } else if (computerChoice == "scissors") {
-        console.log("Tie! " + humanChoice + " ties " + computerChoice);
-      }
-    } else {
-      console.log("invalid human choice");
-    }
-    console.log("Current score: Human " + humanScore + " Computer " + computerScore);
-    console.log();
-  }
-
   for (let i = 0; i < 5; i++) {
     let computerChoice = getComputerChoice();
     let humanChoice = getHumanChoice();
-    playRound(humanChoice, computerChoice);
+    let result = playRound(humanChoice, computerChoice);
+
+    if (result == "Win") {
+      humanScore++;
+    } else if (result == "Lose") {
+      computerScore++;
+    }
+
+    console.log("Current score: Human " + humanScore + " Computer " + computerScore);
+    console.log();
   }
 
   if (humanScore > computerScore) {
