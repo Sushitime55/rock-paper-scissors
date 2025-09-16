@@ -85,4 +85,26 @@ function playGame() {
   }
 }
 
-playGame();
+function playGameOnButtonPress(buttonId) {
+  let result = playRound(buttonId, getComputerChoice());
+  if (result == "Win") {
+    humanScore++;
+  } else if (result == "Lose") {
+    computerScore++;
+  }
+  console.log("Current score: Human " + humanScore + " Computer " + computerScore);
+  console.log();
+}
+
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) =>
+  button.addEventListener("click", playGameOnButtonPress.bind(event, button.id))
+);
+
+humanScore = 0;
+computerScore = 0;
+
+const results = document.getElementById("results");
+const score = document.createElement("p");
+score.textContent = "Current score: Human " + humanScore + " Computer " + computerScore;
+results.appendChild(score);
