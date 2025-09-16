@@ -86,25 +86,51 @@ function playGame() {
 }
 
 function playGameOnButtonPress(buttonId) {
-  let result = playRound(buttonId, getComputerChoice());
+  if (humanScore >= 5 || computerScore >= 5) {
+    humanScore = 0;
+    computerScore = 0;
+    const gameGrats = document.getElementById("grats");
+    gameGrats.textContent = "";
+  }
+
+  let computerChoice = getComputerChoice();
+  let result = playRound(buttonId, computerChoice);
+  let resultText = "";
+
   if (result == "Win") {
     humanScore++;
+    resultText = "You " + result + "! " + buttonId + " beats " + computerChoice;
   } else if (result == "Lose") {
     computerScore++;
+    resultText = "You " + result + ". " + buttonId + " loses to " + computerChoice;
+  } else if ((result = "Tie")) {
+    resultText = "You " + result + "d. " + buttonId + " ties " + computerChoice;
   }
+
   console.log("Current score: Human " + humanScore + " Computer " + computerScore);
   console.log();
+
+  // update text on browser
+  const gameResult = document.getElementById("result");
+  gameResult.textContent = resultText;
+  const score = document.getElementById("score");
+  score.textContent = "Current score: Human " + humanScore + " Computer " + computerScore;
+
+  // announce winner
+  if (humanScore >= 5 || computerScore >= 5) {
+    const winner = humanScore >= 5 ? "Player" : "Computer";
+    const gameGrats = document.getElementById("grats");
+    gameGrats.textContent =
+      winner + " has 5 points. " + winner + " is the overall winner! Play again?";
+  }
 }
 
+// rps buttons. pass arguments by binding them to function
 const buttons = document.querySelectorAll("button");
 buttons.forEach((button) =>
   button.addEventListener("click", playGameOnButtonPress.bind(event, button.id))
 );
 
+// initialize scores as global variables. not the best idea but works for now
 humanScore = 0;
 computerScore = 0;
-
-const results = document.getElementById("results");
-const score = document.createElement("p");
-score.textContent = "Current score: Human " + humanScore + " Computer " + computerScore;
-results.appendChild(score);
