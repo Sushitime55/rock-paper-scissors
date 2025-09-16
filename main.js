@@ -90,7 +90,7 @@ function playGameOnButtonPress(buttonId) {
     humanScore = 0;
     computerScore = 0;
     const gameGrats = document.getElementById("grats");
-    gameGrats.textContent = "";
+    gameGrats.textContent = "First to five is the overall winner.";
   }
 
   let computerChoice = getComputerChoice();
